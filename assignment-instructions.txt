@@ -1,0 +1,45 @@
+Guidelines for submission of Assignments
+
+1.      Download Assignment_template.tex file or Assignment_template.doc file from the course website.
+
+(http://web.iitd.ac.in/~dharmar/mtl106/main.html)
+
+2.      Make each assignment report with 10 problems with solutions using either the .tex file or the .doc file provided to you. Do not delete the contents of the template i.e., name, entry number, question number with topics.
+
+3.      DO NOT shuffle or change or delete the topics corresponding to the serial number given in the template files.
+
+4.      Write the problem statement and solution corresponding to each topic below the corresponding serial number only.
+
+5.      No two problems and the solutions should have same information, same concept and same method of solving to get the answer.
+
+6.      Out of 10 problems, eight problems in Assignment 1 have to be from four topics in Minor 2 syllabus such as Two Dimensional Random Variables, Higher Dimensional Random Variables, Cross Moments and Limiting Distributions. Two problems from each topic. Out of 10 problems, two problems should be from minor 1 syllabus. The topics corresponding each problem number are mentioned in the template file.
+
+7.      Out of 10 problems, eight problems in Assignment 2 have to be from four topics in stochastic processes such as Stochastic Processes, DTMC, CTMC and Queueing Models. Two problems from each topic. Out of 10 problems, two problems can be from minor 1 syllabus. The topics corresponding each problem number are mentioned in the template file.
+
+8.      Problems must NOT be taken from
+
+(a)  Introduction to Probability and Stochastic Processes with Applications, Liliana Blanco Castaneda, Viswanathan Arunachalam, Selvamuthu Dharmaraja, Wiley.
+
+(b)   Probability and Statistics with Reliability, Queueing and Computer Science Applications, Kishor S. Trivedi, John Wiley.
+
+(c)    Introduction to Probability Models, Sheldon M. Ross, Academic Press.
+
+(d)   Ten Tutorial sheets in http://web.iitd.ac.in/~dharmar/mtl106/main.html
+
+That, means, problems and solutions from the following books and ten tutorial sheets are NOT allowed. Zero marks will be awarded to that particular problem, if it is taken from above four items (a) to (d).
+
+9.      Problems can be developed from my research publications. The entire research publications (journals (40), book chapters (7), and conference proceedings (29)) are available in the following website.
+
+http://web.iitd.ac.in/~dharmar/paper/publications.html
+
+10.  Cut and paste from any documents (websites, any books) for the problems and solutions are NOT allowed. That means, you have to understand the problem and then prepare it in your own way without mistakes. Also, prepare the solutions in your own way. You can draw figures also, if it needs.  Obviously, to solve the problems, you may use the above three books and the ten tutorial sheets.
+
+11.  Kindly note that, for me, it is easy to find any sort of cheating in the assignment report if you make it.  
+
+12.  Preparation of assignment reports:
+
+a.       Option 1. Type in latex file. You have to use this template latex file (Assignment1_template.tex/ Assignment2_template.tex) to prepare the report. Compile the latex file (you can use any software for this, example overleaf). Finally, you will get the pdf file.  Submit both latex file and the pdf file for each assignment report.
+
+b.      Option 2. Type in word file. You have to use this template word file (Assignment1_template.doc/ Assignment2_template.doc) to prepare the report. Finally, save as the pdf file.  Submit both word file and the pdf file for each assignment report.
+
+13.  Save the file name as <entry number>_Assignment1, for e.g., 2018EE10565_Assignment1.
