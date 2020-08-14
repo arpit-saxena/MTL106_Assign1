@@ -1,0 +1,175 @@
+\documentclass[12pt, oneside]{article}
+\usepackage{a4wide}
+\usepackage{oldgerm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\setlength{\textheight}{8.875in} \setlength{\textwidth}{6.875in}
+\setlength{\columnsep}{0.3125in} \setlength{\topmargin}{0in}
+\setlength{\headheight}{0in} \setlength{\headsep}{0in}
+\setlength{\parindent}{1pc} \setlength{\oddsidemargin}{-.304in}
+\setlength{\evensidemargin}{-.304in}
+
+
+
+\begin{document}
+\setlength{\textheight}{8.5in}
+\centering {\bf MTL 106 (Introduction to Probability Theory and Stochastic Processes) }\\
+
+
+\centering{\bf Assignment 1 Report}
+
+
+
+\vskip 0.5cm
+
+\noindent Name: Arpit Saxena ~~~~~~~~~~~~~~~~~~~~~ Entry Number: 2018MT10742
+
+
+
+\vskip 0.5cm
+
+
+
+\begin{enumerate}
+	
+
+
+
+\item {
+    Basic Probability
+}
+
+
+\item {
+    Random Variable/Function of a Random Variable
+
+    Alice is trying to send \(X\) bits of data to Bob, where \(X \sim P(5)\). However, during
+    transmission there is a \(10\%\) chance for each bit to flip. What is the probability
+    that Bob receives incorrect data? Now suppose Alice also sends a parity bit, which is
+    0 if here are even number of bits equal to 1, and 1 otherwise; and Bob then checks the
+    data with the parity bit upon receiving i.e. if he receives data with 3 bits set and
+    parity bit 0, he'll know the data is erroneous. What is the probability the Bob receives
+    data which is erroneous and matches the information given by the parity bit?
+
+    \textbf{Solution}
+
+    \underline{Without the parity bit}
+
+    If \(X = k\), then the probability of successful transmission is \((1 - 0.1)^k = 0.9 ^ k\),
+    which means probability of error in transmission is \(1 - 0.9^k\)
+
+    \(\therefore\) By the total probability rule,
+    \begin{align*}
+        P(\text{error in transmission}) &= \sum_{k = 0}^{\infty} 
+                        P(\text{error in transmission } |\,X = k) \times P(X = k) \\
+            &= \sum_{k = 0}^{\infty} \{1 - 0.9^k\} \frac{e^{-5}\,5^k}{k!} \\
+            &= \sum_{k = 0}^{\infty} \frac{e^{-5}\,5^k}{k!} - \sum_{k = 0}^{\infty} 0.9^k\,\frac{e^{-5}\,5^k}{k!} \\
+            &= e^{-5}\,\sum_{k = 0}^{\infty} \frac{5^k}{k!} - \sum_{k = 0}^{\infty} \frac{e^{-5}\,4.5^k}{k!} \\
+            &= 1 - e^{-5}\,e^{0.9 \times 5}  \tag*{(Using Taylor series of \(e^x\))} \\
+            &= 1 - e^{-0.5} \\
+            &\approxeq 0.39
+    \end{align*}
+
+    \underline{With the parity bit}
+
+    Let \(p = 0.1\) be the chance that a bit flips
+
+    If \(X = k\), then there are two cases to consider, namely, if the parity bit changes
+    during transmission or the parity bit remains the same.
+
+    \begin{enumerate}
+        \item {
+            Parity bit remains the same:
+
+            For the data to be changed and still match the information given by the parity bit,
+            we note that an non-zero and even number of bits must be flipped, so the number of
+            bits equal to 1 modulo 2 remains the same.
+
+            So, in this case,
+            \[
+                P(\text{undetectable error}) = {k \choose 2}\,p^2\,(1-p)^{k-2} + {k \choose 4}\,p^4\,(1-p)^{k-4} + \cdots
+            \]
+        }
+        \item {
+            Parity bit flips:
+
+            For the data to be changed and match the parity bit received by Bob, we observe that
+            an even number of bits in the data must be flipped, so the number of bits equal to 1
+            modulo 2 changes from the original data
+
+            \(\therefore\) In this case,
+            \[
+                P(\text{undetectable error}) = {k \choose 1}\,p^1\,(1-p)^{k-1} + {k \choose 3}\,p^3\,(1-p)^{k-3} + \cdots
+            \]
+        }
+    \end{enumerate}
+
+    We note that the probability of the parity bit flipping is \(p\), and so combining the cases,
+    \begin{align}
+        P(\text{undetectable error}) &= (1 - p) \,
+            \left[{k \choose 2}\,p^2\,(1-p)^{k-2} + {k \choose 4}\,p^4\,(1-p)^{k-4} + \cdots\right] \nonumber \\
+            &+ p \,
+            \left[{k \choose 1}\,p^1\,(1-p)^{k-1} + {k \choose 3}\,p^3\,(1-p)^{k-3} + \cdots\right]
+            \label{eq:1}
+    \end{align}
+
+    To solve these equations, we use the binomial theorem as follows:
+    \begin{align*}
+        (x + y)^k &= {k \choose 0}\,x^0\,y^k + {k \choose 1}\,x^1\,y^{k-1} + \cdots + {k \choose k}\,x^k\,y^0 \\
+        (y - x)^k &= {k \choose 0}\,x^0\,y^k - {k \choose 1}\,x^1\,y^{k-1} + \cdots + (-1)^k \, {k \choose k}\,x^k\,y^0 
+    \end{align*}
+
+    Adding and subtracting the above two equations, and replacing \(x\) by p and \(y\) by \(1-p\), we get
+    \begin{align}
+        \frac{1}{2}\left\{(p + 1 - p)^k + (1 - p - p)^k\right\} &= {k \choose 0}\,p^0\,(1-p)^k + {k \choose 2}\,p^2\,(1-p)^{k-2} + \cdots \label{eq:2}\\
+        \frac{1}{2}\left\{(p + 1 - p)^k - (1 - p - p)^k\right\} &= {k \choose 1}\,p^1\,(1-p)^{k-1} + {k \choose 3}\,p^3\,(1-p)^{k-3} + \cdots \label{eq:3}
+    \end{align}
+
+    From equations \ref{eq:1}, \ref{eq:2} and \ref{eq:3}, we get
+    \begin{align*}
+        P(\text{undetectable error}) &= (1 - p)\,\left[\frac{1}{2}\left\{1 + (1 - 2p)^k\right\} - 
+                {k \choose 0}\,p^0\,(1-p)^k\right] \\
+                &+ p\,\left[\frac{1}{2}\left\{1 - (1 - 2p)^k\right\}\right] \\
+            &= \frac{1}{2} - (1 - p)^{k + 1} + \frac{1}{2}\,(1 - 2p)^{k+1} \\
+        \intertext{Replacing \(p\) by 0.1, we get}
+        P(\text{undetectable error}) &= \frac{1}{2} - 0.9^{k + 1} + \frac{1}{2}\,0.8^{k+1}
+    \end{align*}
+
+    Now by the total probability rule,
+    \begin{align*}
+        P(\text{undetected error}) &= \sum_{k = 0}^{\infty} 
+                        P(\text{undetected error } |\,X = k) \times P(X = k) \\
+            &= \sum_{k = 0}^{\infty} 
+                \left[\frac{1}{2} - 0.9^{k + 1} + \frac{1}{2}\,0.8^{k+1}\right]
+                \frac{e^{-5}\,5^k}{k!} \\
+            &= \frac{1}{2}e^{-5}\sum_{k = 0}^{\infty}\frac{5^k}{k!} 
+               - 0.9 \times e^{-5} \sum_{k = 0}^{\infty} \frac{4.5^k}{k!}
+               + 0.8 \times \frac{1}{2} e^{-5} \sum_{k = 0}^{\infty} \frac{4^k}{k!} \\
+            &= \frac{1}{2} - 0.9 \times e^{-5}\,e^{4.5} + 0.4 \times e^{-5}\,e^{4} \tag*{(Using Taylor series of \(e^x\))}\\
+            &= \frac{1}{2} - 0.9 \times e^{-0.5} + 0.4 \times e^{-1} \\
+            &\approxeq  0.10
+    \end{align*}
+}
+
+\item Two Dimensional Random Variables
+
+\item Two Dimensional Random Variables
+
+\item Higher Dimensional Random Variables
+
+\item Higher Dimensional Random Variables
+
+\item Cross Moments
+
+\item Cross Moments
+
+\item Limiting Distributions
+
+\item Limiting Distributions
+
+
+
+\end{enumerate}
+
+\end{document}
