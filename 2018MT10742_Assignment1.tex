@@ -343,7 +343,111 @@
 
 \item Higher Dimensional Random Variables
 
-\item Cross Moments
+\item {
+    Cross Moments
+
+    Two points are chosen randomly on the perimeter of a square with sides of unit length.
+    Find the expected value of the distance between the two points.
+
+    \textbf{Solution}
+
+    We observe that there can be 3 cases for the points with respect to the positions at
+    which they lie on the perimeter, namely, they can lie either on the same side, adjacent
+    sides or on opposite sides.
+
+    In the following cases, we calculate the conditional expectation of the distance between
+    the points given that case:
+
+    \begin{enumerate}
+        \item {
+            Points lie on the same side
+
+            Let \(E_1\) be the event that both points, say \(A\) and \(B\), lie on
+            the same side of the square. Let their distance from an endpoint of the edge
+            be \(X\) and \(Y\) respectively, so distance between them is \(|X - Y|\)
+
+            We observe that the conditional probability distribution function,
+            \(p_{X, Y / E_1} = 1\) 
+
+            Then, \[
+                E(\text{Distance between the points} \,|\, E_1) = \int_{0}^{1} \int_{0}^{1}
+                   |x - y| \,dy \,dx = \frac{1}{3}
+            \]
+        }
+
+        \item {
+            Points lie on adjacent sides
+
+            Let \(E_2\) be the event that both points, say \(A\) and \(B\), lie on
+            adjacent sides of the square. Let their distance from the vertex common to
+            both the edges be \(X\) and \(Y\) respectively, so distance between them is
+            \(\sqrt{X^2 + Y^2}\)
+
+            We observe that the conditional probability distribution function,
+            \(p_{X, Y / E_1} = 1\) 
+
+            Then. \[
+                E(\text{Distance between the points} \,|\, E_2) = \int_{0}^{1} \int_{0}^{1}
+                \sqrt{x^2 + y^2} \,dy \,dx \approx 0.7652
+            \]
+            \hfill (Note: Calculated using numerical integration tools)
+        }
+
+        \item {
+            Points lie on opposite sides
+
+            Let \(E_3\) be the event that both points, say \(A\) and \(B\), lie on
+            opposite sides of the square. Let their distance from the vertices on the
+            same side be \(X\) and \(Y\) respectively, so distance between them is
+            \(\sqrt{(X - Y)^2 + 1}\)
+
+            We observe that the conditional probability distribution function,
+            \(p_{X, Y / E_1} = 1\) 
+
+            Then, \[
+                E(\text{Distance between the points} \,|\, E_3) = \int_{0}^{1} \int_{0}^{1}
+                   \sqrt{(x-y)^2 + 1} \,dy \,dx \approx 1.0766
+            \]
+            \hfill (Note: Calculated using numerical integration tools)
+        }
+    \end{enumerate}
+
+    Now, we calculate the probabilities of the events \(E_1, E_2, E_3\)
+
+    \begin{enumerate}
+        \item {
+            \(E_1\) is the event that both points lie on the same side of the square.
+            The first point can be on any side and for the second point to be on
+            the same side, the probability is \(\frac{1}{4}\)
+
+            \[\therefore P(E_1) = \frac{1}{4}\]
+        }
+        \item {
+            \(E_2\) is the event that both points lie on adjacent sides of the square.
+            The first point can be on any side and the second point has 2 choices of
+            adjacent sides, so the probability is \(\frac{2}{4} = \frac{1}{2}\)
+
+            \[\therefore P(E_2) = \frac{1}{2}\]
+        }
+        \item {
+            \(E_3\) is the event that both points lie on opposite sides of the square.
+            The first point can be on any side and the second point has 1 choice for an
+            opposite side, so the probability is \(\frac{1}{4}\)
+
+            \[\therefore P(E_3) = \frac{1}{4}\]
+        }
+    \end{enumerate}
+
+    Now, we calculate the expected distance between the two points
+    \begin{align*}
+        E(\text{Distance between the points}) &= P(E_1) \cdot E(\text{Distance between the points} \,|\, E_1) \\
+                                              &+ P(E_2) \cdot E(\text{Distance between the points} \,|\, E_2) \\
+                                              &+ P(E_3) \cdot E(\text{Distance between the points} \,|\, E_3) \\
+                                              &\approx \frac{1}{4} \times \frac{1}{3} + \frac{1}{2} \times 0.7652
+                                                   + \frac{1}{4} \times 1.0766 \\
+                                              &\approx 0.7351
+    \end{align*}
+}
 
 \item Cross Moments
 
