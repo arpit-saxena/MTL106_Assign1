@@ -451,7 +451,96 @@
 
 \item Cross Moments
 
-\item Limiting Distributions
+\item {
+    Limiting Distributions
+
+    A spaceship has an initial velocity of zero and for each interval of 1 second,
+    either accelerates at 1 meter per square second with probability 0.4 or does not 
+    accelerate with probability 0.6. Estimate the probability of the total distance covered
+    in 2 minutes being less than 5 kilometers.
+
+    \textbf{Solution}
+
+    Since the decision of accelerating or not happens at interval of 1 seconds, we will
+    work in these intervals. So, we need to find total distance covered in 120 intervals.
+
+    Let \(X_i\) denote the increment in speed from the beginning of an interval to the
+    end of the interval. Then, we note that \(X_i\)'s are independent and 
+    \[
+        P(X_i = x) = \begin{cases}
+                        0.6 & x = \text{acceleration} \times \text{time} = 1 \\
+                        0.4 & x = 0
+                     \end{cases}
+    \]
+
+    Therefore, the speed at the starting of the \(n^{th}\) interval is 
+    \(\sum_{i=1}^{n-1} X_i\)
+
+    Given the increment of speed \(X_n\) in then \(n^{th}\) interval, the contribution of the
+    acceleration to the distance travelled in the interval is
+    \[\frac{1}{2} \times \text{acceleration} \times \text{time}^2 = \frac{1}{2} X_n\]
+
+    Therefore, the distance travelled in the \(n^{th}\) interval is given by
+    \[
+        d_n = \sum_{i=1}^{n-1} X_i + \frac{1}{2} X_n
+    \]
+
+    Thus, the total distance travelled in 2 minutes i.e. 120 intervals is
+    \begin{align*}
+        D &= \sum_{n = 1}^{120} d_n \\
+          &= \sum_{n = 1}^{120} \left[\sum_{i=1}^{n-1} X_i + \frac{1}{2} X_n\right] \\
+          &= \sum_{n = 1}^{120} \sum_{i=1}^{n-1} X_i + \sum_{n = 1}^{120} \frac{1}{2} X_n \\
+          &= \sum_{n = 1}^{119} (120 - n) X_n + \sum_{n = 1}^{120} \frac{1}{2} X_n 
+                          \tag*{(Expanding the double summation)} \\   
+          &= \sum_{n = 1}^{119} (120.5 - n) X_n + \frac{1}{2}X_{120}
+    \end{align*}
+
+    Let \(X = \sum_{n = 1}^{119} (120.5 - n) X_n\). Since \(X_n\)'s are independent,
+    then \(X\) is a sum of a large number of independent random variables and by the
+    Central Limit Theorem must be normally distributed
+
+    \begin{align*}
+        E\left[\sum_{n = 1}^{119} (120.5 - n) X_n\right] &= \sum_{n = 1}^{119} (120.5 - n) E(X_n) \\
+            &= \sum_{n = 1}^{119} (120.5 - n) (0.6 \times 1 + 0.4 \times 0) \\
+            &= \sum_{n = 1}^{119} (120.5 - n) \times 0.6 \\
+            &= 120.5 \times 0.6 \times 119 - 0.6 \times \frac{119 \times 120}{2} \\
+            &= 4319.7
+    \end{align*}
+
+    \begin{align*}
+        Var\left[\sum_{n = 1}^{119} (120.5 - n) X_n\right]
+            &= \sum_{n = 1}^{119} Var\left[(120.5 - n) X_n\right] \tag*{(As the rv's are independent)} \\
+            &= \sum_{n = 1}^{119} (120.5 - n)^2 \, Var(X_n) \\
+            &= \sum_{n = 1}^{119} (120.5 - n)^2 \, [0.6 \times (1 - 0.6)^2 + 0.4 \times (0 - 0.6)^2] \\
+            &= 138237.54
+    \end{align*}
+
+    The total distance travelled in 120 intervals is \(D = X + \frac{1}{2} X_{120}\). Then 
+    \begin{align*}
+        P(D \leq 5000) &= P\left(X + \frac{1}{2} X_{120} \leq 5000\right) \\
+        \intertext{Since \(X\) is combination of \(X_1\) to \(X_{119}\) and \(X_{i}\)'s 
+                    are independent, \(X\) and \(X_{120}\) are independent}
+        \implies P(D \leq 5000) &= P(X_{120} = 1) P(X \leq 4995.5) + P(X_{120} = 0) P(X \leq 2000) \\
+            &= 0.6 \times P(X \leq 4995.5) + 0.4 \times P(X \leq 5000)
+    \end{align*}
+
+    From above discussion, we know that \(X\) is normally distributed with mean 4319.7 
+    and variance 138237.54. This implies that
+    \[\frac{X - 4319.7}{\sqrt{138237.54}} = \frac{X - 4319.7}{371.8} \sim \mathcal{N}(0, 1)\]
+    \[\text{In other words, } X = 371.8 Z + 4319.7 \text{ where } Z \sim \mathcal{N}(0, 1)\]
+
+    Let \(\Phi(z)\) be the CDF of Z i.e. \(\Phi(z) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{z} e^{-t^2/2} \,dt\)
+
+    Then
+    \begin{align*}
+        P(D \leq 5000) &= 0.6 \times P(X \leq 4995.5) + 0.4 \times P(X \leq 5000) \\
+            &= 0.6 \times P(371.8 Z + 4319.7 \leq 4995.5) + 0.4 \times P(371.8 Z + 4319.7 \leq 5000) \\
+            &= 0.6 \times P(Z \leq 1.818) + 0.4 \times P(Z \leq 1.830) \\
+            &= 0.6 \times 0.96562 + 0.4 \times 0.96638 \\
+            &\approx 0.97
+    \end{align*}
+
+}
 
 \item Limiting Distributions
 
