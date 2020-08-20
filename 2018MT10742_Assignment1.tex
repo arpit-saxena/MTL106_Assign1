@@ -156,7 +156,190 @@
 
 \item Two Dimensional Random Variables
 
-\item Higher Dimensional Random Variables
+\item {
+    Higher Dimensional Random Variables
+
+    \begin{enumerate}
+        \item Let \(A, B, C\) be 3 random variables such that their pdf is given by the function
+        \[
+            f(a, b, c) = \begin{cases}
+                            1 & 0 < a < 1, 0 < b < 1, 0 < c < 1 \\
+                            0 & \text{otherwise}
+                         \end{cases}
+        \]
+        Find the CDF of \(A^2 + B^2 - C\) in terms of \(f\)
+        \item Consider the equation \(x^2 + y^2 + 2Ax + 2By + C = 0\). Find the probability
+        that this equation represents a real circle (i.e. radius \(> 0\)).
+    \end{enumerate}
+
+    \textbf{Solution}
+
+    Let \(R = A^2 + B^2 - C\)
+
+    We note that \(min(R) = -1\) and \(max(R) = 1\) since the maximum and minimum values
+    of \(A, B, C\) are 1 and 0 respectively
+
+    \(\therefore P(R \leq -1) = 0 \text{ and } P(R \leq 1) = 1\)
+
+    Since \(A^2 + B^2 - C <= r \implies A^2 + B^2 <= C + r\), it makes sense to make
+    cases on \(r\) with breakpoints \(r = -1\) since it gives a lower limit to the value
+    \(C\) could take, \(r = 0\) since it limits the value of \(C + r\), and then finally
+    at \(r = 1\)
+
+    \begin{enumerate}
+        \item {
+            \(-1 \leq r < 0\)
+
+            Since \(A^2 + B^2 = C + r\), it must be positive. So \(C\) must range from
+            \(1 - r\) to \(1\). 
+
+            For \(C = c\) in the said range, \(0 \leq c + r < 1\) and thus \(A\) can
+            range from 0 to \(c + r\) and similarly for \(B\).
+
+            \(\therefore\) In this case,
+            \[
+                P(R \leq r) = \int_{c = -r}^{1} \int_{a=0}^{\sqrt{c + r}} 
+                              \int_{b = 0}^{\sqrt{c + r - a^2}} f(a, b, c)\, db\, da\, dc
+            \]
+        }
+
+        \item {
+            \(0 \leq r < 1\)
+
+            \(A^2 + B^2 \leq C + r\) gives a breakpoint at \(1 - r\) for \(C\) since
+            for the former, \(A\) can go from \(0 \text{ to } c + r\) but not for the
+            latter since \(c + r\) would become greater than 1.
+
+            \begin{itemize}
+                \item {
+                    \(0 < c < 1 - r\)
+
+                    As described above, for this case, \(A\) will range from 0 to 
+                    \(\sqrt{c + r}\) and similarly for B.
+                    So the required probability is:
+                    \[
+                        \int_{c = 0}^{1 - r} \int_{a=0}^{\sqrt{c + r}} 
+                        \int_{b = 0}^{\sqrt{c + r - a^2}} f(a, b, c)\, db\, da\, dc
+                    \]
+                }
+
+                \item {
+                    \(1 - r \leq c < 1\)
+
+                    For this case \(c + r > 1\), and \(A\) can range fully from 0 to 1
+                    Then, considering \(B^2 \leq c + r - a^2\) we note that when 
+                    \(a > \sqrt{c + r - 1}\), \(B\) ranges from 0 to \(\sqrt{c + r - a^2}\)
+                    and when \(0 < a leq \sqrt{c + r - 1}\), \(B\) ranges from 0 to 1.
+
+                    \(\therefore\) The required probability is:
+                    \[
+                        \int_{c = 1 - r}^{1} \int_{a=0}^{\sqrt{c + r - 1}} 
+                        \int_{b = 0}^{1} f(a, b, c)\, db\, da\, dc
+                        + \int_{c = 1 - r}^{1} \int_{\sqrt{c + r - 1}}^{1} 
+                        \int_{b = 0}^{\sqrt{c + r - a^2}} f(a, b, c)\, db\, da\, dc
+                    \]
+                }
+            \end{itemize}
+
+            Totalling up the probabilities for this case, we have
+            \begin{align*}
+                P(R \leq r) &= \int_{c = 0}^{1 - r} \int_{a=0}^{\sqrt{c + r}} 
+                \int_{b = 0}^{\sqrt{c + r - a^2}} f(a, b, c)\, db\, da\, dc \\
+                &+ \int_{c = 1 - r}^{1} \int_{a=0}^{\sqrt{c + r - 1}} 
+                \int_{b = 0}^{1} f(a, b, c)\, db\, da\, dc \\
+                &+ \int_{c = 1 - r}^{1} \int_{\sqrt{c + r - 1}}^{1} 
+                \int_{b = 0}^{\sqrt{c + r - a^2}} f(a, b, c)\, db\, da\, dc
+            \end{align*}
+        }
+
+        \item {
+            \(1 \leq r < 2\)
+
+            \(A^2 + B^2 \leq C + r\) gives the breakpoint at \(2 - r\) for \(C\) since
+            for the part before the breakpoint, \(A\) and \(B\) can't take full values,
+            but for \(c \geq 2 - r\), we get \(c + r \geq 2\) which means both \(A\) and \(B\)
+            can be from 0 to 1.
+
+            \begin{itemize}
+                \item {
+                    \(0 < c < 2 - r\)
+
+                    For this case, \(1 \leq c + r < 2\), so \(A\) can fully range from
+                    0 to 1. However, from \(B^2 \leq c + r - A^2\), when \(A\) is from 0 to
+                    \(\sqrt{c + r - 1}\), \(B\) can fully range from 0 to 1 but not in the
+                    remaining interval.
+
+                    \begin{itemize}
+                        \item {
+                            \(0 < a < \sqrt{c + r - 1}\)
+
+                            As noted above, \(B\) can range from 0 to 1, so the required probability
+                            is:
+                            \[
+                                \int_{c = 0}^{2 - r} \int_{a=0}^{\sqrt{c + r - 1}} 
+                                \int_{b = 0}^{1} f(a, b, c)\, db\, da\, dc
+                            \]
+                        }
+                        \item {
+                            \(\sqrt{c + r - 1} \leq a < 1\)
+
+                            Here, \(c + r - a^2 \leq 1\), so \(B\) will range from 0 to
+                            \(\sqrt{c + r - a^2}\). So the required probability is:
+                            \[
+                                \int_{c = 0}^{2 - r} \int_{a=\sqrt{c + r - 1}}^{1} 
+                                \int_{b = 0}^{\sqrt{c + r - a^2}} f(a, b, c)\, db\, da\, dc
+                            \]
+                        }
+                    \end{itemize}
+                }
+                \item {
+                    \(2 - r \leq c < 1\)
+
+                    Here, as we already noted, \(c + r \geq 2\), so \(A\) and \(B\) can fully
+                    range from 0 to 1. So the required probability is:
+
+                    \[
+                        \int_{c = 2 - r}^{1} \int_{a=0}^{1} 
+                        \int_{b = 0}^{1} f(a, b, c)\, db\, da\, dc
+                    \]
+                }
+            \end{itemize}
+
+            Totalling up the probabilities for this case, we have
+            \begin{align*}
+                P(R \leq r) &= \int_{c = 0}^{2 - r} \int_{a=0}^{\sqrt{c + r - 1}} 
+                                \int_{b = 0}^{1} f(a, b, c)\, db\, da\, dc \\
+                            &+ \int_{c = 0}^{2 - r} \int_{a=\sqrt{c + r - 1}}^{1} 
+                                \int_{b = 0}^{\sqrt{c + r - a^2}} f(a, b, c)\, db\, da\, dc \\
+                            &+ \int_{c = 2 - r}^{1} \int_{a=0}^{1} 
+                                \int_{b = 0}^{1} f(a, b, c)\, db\, da\, dc
+            \end{align*}
+        }
+    \end{enumerate}
+
+    The probabilities as calculated in the different cases can be stated together and
+    thus would define the CDF completely.
+
+    Given the equation \(x^2 + y^2 + 2Ax + 2By + C = 0\), we can rearrange it to
+    \((x - A)^2 + (y - B)^2 = A^2 + B^2 - C\), which as we observe is a circle with the
+    centre \((A, B)\) and square of the radius equal to \(A^2 + B^2 - C\)
+
+    We need to find \(P(A^2 + B^2 - C > 0)\). Taking the expression of \(P(R \leq r)\)
+    corresponding to \(r = 0\) and substituting \(r = 0\), we get
+    \begin{align*}
+        P(A^2 + B^2 - C \leq 0) &= \int_{c = 0}^{1} \int_{a=0}^{\sqrt{c}} 
+                                    \int_{b = 0}^{\sqrt{c - a^2}} f(a, b, c)\, db\, da\, dc \\
+                                &= \int_{0}^{1} \int_{0}^{\sqrt{c}} 
+                                \int_{0}^{\sqrt{c - a^2}} \, db\, da\, dc \\
+                                &= \int_{0}^{1} \int_{0}^{\sqrt{c}} \sqrt{c - a^2}\, da\, dc \\
+                                &= \int_{0}^{1} \left[\frac{a}{2}\sqrt{c - a^2} + \frac{c}{2}
+                                    \sin^{-1}{\frac{a}{\sqrt{c}}}\right]^{\sqrt{c}}_{0} dc \\
+                                &= \int_{0}^{1} \frac{c}{2} \, \frac{\pi}{2} \, dc \\
+                                &= \frac{\pi}{8}
+    \end{align*}
+
+    \(\therefore P(A^2 + B^2 - C > 0) = 1 - P(A^2 + B^2 - C \leq 0) = 1 - \dfrac{\pi}{8}\)
+}
 
 \item Higher Dimensional Random Variables
 
