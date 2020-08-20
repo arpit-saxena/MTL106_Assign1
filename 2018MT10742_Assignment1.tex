@@ -455,7 +455,46 @@
     \(\therefore P(A^2 + B^2 - C > 0) = 1 - P(A^2 + B^2 - C \leq 0) = 1 - \dfrac{\pi}{8}\)
 }
 
-\item Higher Dimensional Random Variables
+\item {
+    Higher Dimensional Random Variables
+
+    In a buggy multithreaded application, two threads accessing shared state within time
+    \(5 ns\) of each other will crash the application. Consider three threads which will 
+    access the shared state at times \(T_1, T_2, T_3\) which are exponentially
+    distributed random variables with parameters 0.04 \(ns^{-1}\), 0.02 \(ns^{-1}\),
+    and 0.05 \(ns^{-1}\) respectively. What is the probability that the application will
+    not crash?
+
+    \textbf{Solution}
+
+    Since \(T_1, T_2, T_3\) are continuous random variables, the probability of any two
+    of them being equal is zero. Therefore, \(T_1, T_2, T_3\) are all distinct. Let their
+    parameters be \(\lambda_1, \lambda_2, \lambda_3\) respectively.
+
+    So, there are six cases based on which thread accesses the variable first. We solve
+    the first one here where \(T_1 < T_2 < T_3\)
+
+    \begin{align*}
+        \text{Probability} &= \int_{0}^{\infty} \int_{5 + t_1}^{\infty} \int_{5 + t_2}^{\infty}
+                \lambda_1 e^{-\lambda_1 t_1} \lambda_2 e^{-\lambda_2 t_2} \lambda_3 e^{-\lambda_3 t_3}
+                \,dt_3 \,dt_2 \,dt_1 \\
+        \intertext{Solving the integral, we get}
+        \text{Probability} &= \frac{\lambda_2}{\lambda_2 + \lambda_3} 
+                \frac{\lambda_1}{\lambda_1 + \lambda_2 + \lambda_3} e^{-5(\lambda_2 + 2\lambda_3)}
+    \end{align*}
+
+    Adding up integrals from all the cases, we get
+    \begin{align*}
+        \text{Probability of not crashing} &= \frac{\lambda_2}{\lambda_2 + \lambda_3} \frac{\lambda_1}{\lambda_1 + \lambda_2 + \lambda_3} e^{-5(\lambda_2 + 2\lambda_3)} \\
+             &+ \frac{\lambda_3}{\lambda_2 + \lambda_3} \frac{\lambda_1}{\lambda_1 + \lambda_2 + \lambda_3} e^{-5(\lambda_3 + 2\lambda_2)} \\
+             &+ \frac{\lambda_3}{\lambda_1 + \lambda_3} \frac{\lambda_2}{\lambda_1 + \lambda_2 + \lambda_3} e^{-5(\lambda_3 + 2\lambda_1)} \\
+             &+ \frac{\lambda_1}{\lambda_1 + \lambda_3} \frac{\lambda_2}{\lambda_1 + \lambda_2 + \lambda_3} e^{-5(\lambda_1 + 2\lambda_3)} \\
+             &+ \frac{\lambda_1}{\lambda_1 + \lambda_2} \frac{\lambda_3}{\lambda_1 + \lambda_2 + \lambda_3} e^{-5(\lambda_1 + 2\lambda_2)} \\
+             &+ \frac{\lambda_2}{\lambda_1 + \lambda_2} \frac{\lambda_3}{\lambda_1 + \lambda_2 + \lambda_3} e^{-5(\lambda_2 + 2\lambda_1)} \\
+        \intertext{Substituting \(\lambda_1 = 0.04, \lambda_2 = 0.02, \lambda_3 = 0.05\) we get}
+        \text{Probability of not crashing} &= 0.410
+    \end{align*}
+}
 
 \item {
     Cross Moments
