@@ -38,6 +38,120 @@
 
 \item {
     Basic Probability
+
+    Let the sample space, \(\Omega = \mathbb{N}\). Define a \(\sigma\)-field on \(\Omega\)
+    which has infinite events, and is neither the smallest nor the largest \(\sigma\)-field.
+    Define a probability on that \(\sigma\)-field with an infinite number of non zero values
+
+    \textbf{Solution}
+
+    Let \(\mathcal{F}\) include sets whose elements are powers of 2 and their complements.
+    
+    Since all elements of \(\varnothing\) are powers of 2, \(\varnothing \in \mathcal{F}\) 
+    and since complements of the set are also included, \(\Omega \in \mathcal{F}\)
+
+    Let \(A_i, i = 1, 2, \ldots \in \mathcal{F}\). Then:
+    \begin{enumerate}
+        \item {
+            All the sets contain only powers of 2:
+
+            In this case, the union of the sets would also include only powers of 2,
+            and thus \(\bigcup_{i}A_i \in \mathcal{F}\)
+        }
+        \item {
+            There is atleast one set which contains an element which is not a power of 2:
+
+            Since that set does not contain all powers of 2, it must be the complement
+            of a set containing powers of 2 (since those are the only type of sets included
+            in \(\mathcal{F}\)). 
+
+            So, we have one set which is of the form \(\mathbb{R} \setminus \{2^{i_1}, 2^{i_2}, \ldots\}\)
+            When we union this with sets which only contain powers of 2, it stays in the form
+            of a complement of a set. Same thing happens when we union sets which are complements 
+            of sets containing only powers of 2.
+
+            Therefore, the union of these sets would be of the form \(\mathbb{R} \setminus \{2^{i_1}, 2^{i_2}, \ldots\}\)
+            where \(i_1, i_2, \ldots \in \mathbb{N} \cup \{0\}\) and thus \(\bigcup_{i}A_i \in \mathcal{F}\)
+        }
+    \end{enumerate}
+
+    Thus, \(\mathcal{F}\) is a \(\sigma\)-field.
+
+    Now we define a function \(P: \mathcal{F} \to \mathbb{R}\) such that
+    \(P(x) = \frac{1}{2x}, \{x\} \in \mathcal{F}\) and for other sets in \(\mathcal{F}\),
+    the value of \(P\) is defined by \(P\left(\bigcup_{i} \{x_i\}\right) = \sum_{i} P(x_i)\)
+    when all \(x_i\)'s are powers of 2, \(P(\varnothing) = 0\), and for a set \(A\) for which
+    \(P\) is defined for \(A^c\), \(P(A) = 1 - P(A^c)\)
+
+    First we note that \(P\) is a well defined function since we have defined \(P\) for 
+    the empty set, for sets containing only powers of 2, and also for sets which are their
+    complements. These being the only types of sets in \(\mathcal{F}\) implies P is a well
+    defined function.
+
+    To prove \(P\) is a probability, we need to show
+    \begin{enumerate}
+        \item {
+            \(P(\Omega) = 1\)
+
+            We have defined \(P(\varnothing) = 0\), which implies 
+            \(P(\Omega) = 1 - P(\varnothing) = 1\)
+        }
+        \item {
+            \(P(A) \geq 0 \, \forall A \in \mathcal{F}\)
+
+            We note that for all sets consisting of only powers of 2, \(P(A) \geq 0\)
+            by definition.
+            
+            Also, if \(A = \bigcup_{i} \{2^{x_i}\} \neq \varnothing\), then
+            \begin{align*}
+                P(A) &= P\left(\bigcup_{i} \{2^{x_i}\}\right) \\
+                     &= \sum_{i} P(2^{x_i}) \tag*{(By definition)}\\
+                     &\leq \sum_{i=0}^{\infty} P(2^i) \\
+                     &\leq \sum_{i=0}^{\infty} \frac{1}{2 \times 2^i} = 1\\
+                \therefore P(A) &\leq 1
+            \end{align*}
+
+            So, \(P(A^c) = 1 - P(A) \geq 0\) and \(P(\varnothing) = 0 \geq 0\)
+
+            So we have shown that for all type of sets \(A \in \mathcal{F}\), \(P(A) \geq 0\)
+        }
+        \item {
+            \(P(\bigcup_{i} A_i) = \sum_i P(A_i)\), where \(A_i\)'s are mutually disjoint events
+
+            Here, we have two cases:
+            \begin{enumerate}
+                \item {
+                    All \(A_i\)'s only contain powers of 2:
+
+                    Then it is obvious that the union of the \(A_i\)'s would contain
+                    all those powers of 2, and by using the definition of \(P\) can
+                    be expanded to a sum, and those sums could be grouped into \(A_i\)'s
+                    again. This is possible since \(A_i\)'s are disjoint.
+                }
+                \item {
+                    There is atleast one \(A_i\) which does not contain a multiple of 2:
+
+                    We note that there can only be one such set which does not contain a
+                    multiple of 2. If there were 2 such sets, then 3 would belong to both
+                    of those sets since they have to be complements of sets containing only
+                    powers of 2 and that contradicts our assumption of them to be
+                    disjoint.
+
+                    Let that one set be \(\mathbb{R} \setminus \bigcup_i 2^{x_i}\). Then
+                    the other sets, which contain only powers of 2 would only have elements
+                    which belong to \(\bigcup_i 2^{x_i}\) for the sets to be disjoint.
+
+                    Then we see that on applying \(P\) to the union of these sets, and expanding,
+                    we would be able to add an subtract terms of \(P(x_i)\)'s for \(x_i\)'s which
+                    belonged to other sets, and then group the terms into sum of application of \(P\)
+                    on all the sets
+                }
+            \end{enumerate}
+        }
+    \end{enumerate}
+
+    Thus, \(P\) defines a probability on \(\mathcal{F}\) and it's easily seen that \(P\)
+    has infinite number of non-zero values.
 }
 
 
@@ -542,7 +656,40 @@
 
 }
 
-\item Limiting Distributions
+\item {
+    Limiting Distributions
+
+    For an estimation, take number of people in a factory to be given by the random variable
+    \(N \sim P(\mu)\). Total time taken off by a worker is assumed to be independent of each other
+    and following the distribution \(Exp(\lambda (an + b))\). Suppose
+    the factory owner decides the downsize the workforce and fire all the workers who have taken
+    time off for time more than \(t\), estimate the expected number of workers who will be fired.
+    Assume \(\mu\) to be large, i.e. practically the factory has a large number of workers
+
+    \textbf{Solution}
+
+    Let \(T\) be the time off taken by an employee, then
+    \[
+        P(T > t) = 1 - P(T \leq t) = 1 - (1 - e^{-\lambda t(an + b)}) = e^{-\lambda t(an + b)}
+    \]
+
+    For a given \(N = n\), we assume that n is large, and applying the Bernoulli law of
+    large numbers, we get that \(\frac{n_f}{n} \approx e^{-\lambda t(an + b)}\), 
+    where \(n_f\) is the number of people fired.
+
+    So, \(n_f = n e^{-\lambda t(an + b)}\) when factory has \(n\) workers
+
+    \begin{align*}
+        E(n_f) &= E(E(n_f | N)) \\
+               &= E(N e^{-\lambda t(aN + b)}) \\
+               &= \sum_{n = 0}^{\infty} n e^{-\lambda t(an + b)} \frac{e^{-\mu} \mu^n}{n!} \\
+               &= \mu e^{-\mu} \sum_{n = 1}^{\infty} e^{-\lambda t(an + b)} \frac{\mu^{n-1}}{(n-1)!} \\
+               &= \mu e^{-\mu} \sum_{n = 0}^{\infty} e^{-\lambda t(an + (a + b))} \frac{\mu^{n}}{n!} \\
+               &= \mu e^{-\mu} e^{-\lambda t(a + b)} \sum_{n = 0}^{\infty} \frac{(\mu e^{-a \lambda t})^n}{n!} \\
+               &= \mu e^{-\mu} e^{-\lambda t(a + b)} e^{\mu e^{-a \lambda t}} \\
+               &= \mu e^{\mu(e^{-a \lambda t} - 1) - \lambda t (a + b)}
+    \end{align*}
+}
 
 
 
